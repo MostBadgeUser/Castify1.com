@@ -13,10 +13,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Castify - Broadcast Your Passion</title>
+    <title>Castify - Channels</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -32,7 +30,7 @@
                 <ul>
                     <li><a href="#" onclick="location.reload();">Home</a></li>
                     <li><a href="#">Watch</a></li>
-                    <li><a href="#">Channels</a></li>
+                    <li><a href="https://mostbadgeuser.github.io/Castify_Channels.com/">Channels</a></li>
                     <li><a href="#">Community</a></li>
                 </ul>
                 <div class="search-container">
@@ -47,41 +45,10 @@
             </nav>
         </header>
 
-        <!-- Recently Viewed Section -->
-        <section class="recently-viewed">
-            <h2>Recently Viewed Videos</h2>
-            <div class="video-thumbnails">
-                <div class="video-item">Video 1</div>
-                <div class="video-item">Video 2</div>
-                <div class="video-item">Video 3</div>
-                <div class="video-item">Video 4</div>
-            </div>
-        </section>
-
-        <!-- Recently Watched Section -->
-        <section class="recently-watched">
-            <h2>Recently Watched</h2>
-            <div class="video-thumbnails">
-                <div class="video-item">Video A</div>
-                <div class="video-item">Video B</div>
-                <div class="video-item">Video C</div>
-                <div class="video-item">Video D</div>
-            </div>
-        </section>
-
-        <!-- Featured Video Section -->
-        <section class="featured">
-            <div class="featured-video">
-                <h3>Featured Video</h3>
-                <div class="video-frame">
-                    <p>Metamorphosis</p>
-                </div>
-            </div>
-            <div class="upload">
-                <h3>Upload</h3>
-                <p>Share your video with the world!</p>
-                <button class="upload-button" onclick="alert('Upload your video!');">Upload Now</button>
-            </div>
+        <!-- Channels Section -->
+        <section class="channels-container" id="channelsContainer">
+            <h2>Channels</h2>
+            <!-- Channels will be dynamically inserted here -->
         </section>
 
         <!-- Footer Section -->
@@ -90,27 +57,7 @@
         </footer>
     </div>
 
-    <script>
-        // JavaScript for search functionality
-        const searchButton = document.querySelector('.search-button');
-        searchButton.addEventListener('click', function() {
-            const query = document.querySelector('.search-input').value;
-            alert('Searching for: ' + query);
-            // Here you can redirect to a search results page if implemented
-        });
-
-        // Function to display user's nickname
-        function displayUsername() {
-            const currentUser = localStorage.getItem('currentUser');
-            if (currentUser) {
-                const usernameDisplay = document.querySelector('.username');
-                usernameDisplay.textContent = currentUser; // Set username in profile section
-            }
-        }
-
-        // Call displayUsername function on page load
-        document.addEventListener('DOMContentLoaded', displayUsername);
-    </script>
+    <script src="script.js"></script> <!-- Link to your JavaScript file -->
 </body>
 </html>
 <!-- partial -->

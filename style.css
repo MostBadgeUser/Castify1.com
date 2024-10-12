@@ -1,58 +1,49 @@
-/* General Styles */
 body {
     font-family: 'Open Sans', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #e0e1dd; /* Background color */
-    color: #1b263b; /* Text color */
+    background-color: #e0e1dd;
+    color: #1b263b;
 }
 
-/* Container */
 .container {
-    width: 90%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
 
-/* Header */
 header {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
-    background-color: #0d1b2a; /* Header background color */
+    background-color: #0d1b2a;
     padding: 10px 20px;
-    color: #e0e1dd; /* Header text color */
 }
 
-header .logo img {
-    height: 40px; /* Logo height */
+.logo img {
+    height: 50px;
 }
 
-nav .menu {
+.menu {
     display: flex;
     align-items: center;
 }
 
-nav .menu ul {
+.menu ul {
     list-style: none;
-    display: flex;
-    margin: 0;
     padding: 0;
+    margin: 0 20px;
+    display: flex;
 }
 
-nav .menu ul li {
-    margin: 0 15px; /* Space between menu items */
+.menu li {
+    margin: 0 15px;
 }
 
-nav .menu ul li a {
-    color: #e0e1dd; /* Menu link color */
+.menu a {
+    color: #778da9;
     text-decoration: none;
-    transition: color 0.3s;
-}
-
-nav .menu ul li a:hover {
-    color: #778da9; /* Menu link hover color */
+    font-weight: 600;
 }
 
 .search-container {
@@ -62,110 +53,57 @@ nav .menu ul li a:hover {
 
 .search-input {
     padding: 5px;
-    border: 1px solid #415a77; /* Search input border color */
-    border-radius: 5px;
+    border: 1px solid #415a77;
+    border-radius: 4px;
 }
 
 .search-button {
     padding: 5px 10px;
     border: none;
-    background-color: #415a77; /* Button background color */
-    color: white; /* Button text color */
-    border-radius: 5px;
+    background-color: #415a77;
+    color: #e0e1dd;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.search-button:hover {
-    background-color: #778da9; /* Button hover color */
 }
 
 .profile {
     display: flex;
     align-items: center;
+    margin-left: 20px;
 }
 
 .profile-pic {
     border-radius: 50%;
+    margin-right: 10px;
 }
 
-.username {
-    margin: 0 10px; /* Space around username */
-}
-
-/* Channels Section */
 .channels-container {
-    margin-top: 20px; /* Space above channels section */
+    margin-top: 20px;
+}
+
+.channels-container h2 {
+    text-align: center;
+    color: #0d1b2a;
 }
 
 .channel-item {
+    background-color: #1b263b;
+    border-radius: 8px;
+    margin: 10px 0;
+    padding: 10px;
     display: flex;
     align-items: center;
-    background-color: #fff; /* Channel item background color */
-    border-radius: 8px;
-    padding: 10px;
-    margin: 10px 0; /* Space between channel items */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow effect */
+    color: #e0e1dd;
 }
 
 .channel-icon {
-    width: 50px; /* Icon width */
-    height: 50px; /* Icon height */
-    border-radius: 5px;
-    margin-right: 15px; /* Space between icon and text */
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
 }
 
-.channel-info h2 {
-    margin: 0;
-    font-size: 1.2em; /* Channel title size */
-}
-
-.channel-info p {
-    margin: 5px 0 0; /* Space below email */
-    font-size: 0.9em; /* Email size */
-    color: #778da9; /* Email color */
-}
-
-/* Registration Form */
-.registration-container {
-    margin-top: 30px; /* Space above registration section */
-    padding: 20px;
-    background-color: #fff; /* Background color for form */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow effect */
-}
-
-.registration-container h2 {
-    margin: 0 0 15px; /* Space below heading */
-}
-
-.registration-container input {
-    width: 100%; /* Full width for inputs */
-    padding: 10px; /* Padding for inputs */
-    border: 1px solid #415a77; /* Input border color */
-    border-radius: 5px; /* Rounded corners */
-    margin-bottom: 15px; /* Space below inputs */
-}
-
-.registration-container button {
-    padding: 10px;
-    border: none;
-    background-color: #415a77; /* Button background color */
-    color: white; /* Button text color */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer;
-    transition: background-color 0.3s; /* Transition for hover effect */
-}
-
-.registration-container button:hover {
-    background-color: #778da9; /* Button hover color */
-}
-
-/* Footer */
-footer {
-    margin-top: 30px; /* Space above footer */
+.footer {
     text-align: center;
-    padding: 10px 0; /* Padding for footer */
-    background-color: #0d1b2a; /* Footer background color */
-    color: #e0e1dd; /* Footer text color */
+    margin-top: 20px;
+    color: #1b263b;
 }

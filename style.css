@@ -1,90 +1,171 @@
-// Check if user is already registered
-function isUserRegistered(username) {
-    const users = JSON.parse(localStorage.getItem('users')) || [];
-    return users.some(user => user.username === username);
+/* General Styles */
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e0e1dd; /* Background color */
+    color: #1b263b; /* Text color */
 }
 
-// Register user and store in localStorage
-function registerUser(username, email, password) {
-    const users = JSON.parse(localStorage.getItem('users')) || [];
-    users.push({ username, email, password });
-    localStorage.setItem('users', JSON.stringify(users));
-    // Save the registered username (nickname) to localStorage for the session
-    localStorage.setItem('currentUser', username);
+/* Container */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
-// Send welcome email using EmailJS
-function sendWelcomeEmail(email, username) {
-    emailjs.send("service_eaz5mxs", "template_your_template_id", {
-        to_email: email,
-        username: username
-    })
-    .then(function(response) {
-        console.log('Email sent successfully:', response);
-    }, function(error) {
-        console.error('Failed to send email:', error);
-    });
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0d1b2a; /* Header background color */
+    padding: 10px 20px;
+    color: #e0e1dd; /* Header text color */
 }
 
-// Handle registration form submission
-document.getElementById('registrationForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent default form submission
-
-    const username = document.getElementById('username').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    if (!isUserRegistered(username)) {
-        registerUser(username, email, password);
-        sendWelcomeEmail(email, username); // Send welcome email
-        alert('Registration successful! Redirecting...');
-        // Redirect to the main page after successful registration
-        window.location.href = 'index.html'; // Adjust to your main page
-    } else {
-        alert('Username already taken!');
-    }
-});
-
-// Function to display user's nickname
-function displayUsername() {
-    const currentUser = localStorage.getItem('currentUser');
-    if (currentUser) {
-        const usernameDisplay = document.querySelector('.username');
-        usernameDisplay.textContent = currentUser; // Set username in profile section
-    }
+header .logo img {
+    height: 40px; /* Logo height */
 }
 
-// Call displayUsername function on page load
-document.addEventListener('DOMContentLoaded', displayUsername);
-
-// Initialize EmailJS
-(function(){
-    emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS public key
-})();
-
-// Load channels on the channel page
-function loadChannels() {
-    const users = JSON.parse(localStorage.getItem('users')) || [];
-    const channelsContainer = document.getElementById('channelsContainer');
-
-    if (users.length === 0) {
-        channelsContainer.innerHTML = '<p>No channels available.</p>'; // Message if no channels
-        return;
-    }
-
-    users.forEach(user => {
-        const channelDiv = document.createElement('div');
-        channelDiv.classList.add('channel-item');
-        channelDiv.innerHTML = `
-            <img class="channel-icon" src="https://i.ibb.co/Ksjms5W/icon.png" alt="Channel Icon">
-            <div class="channel-info">
-                <h2>${user.username}</h2>
-                <p>Email: ${user.email}</p>
-            </div>
-        `;
-        channelsContainer.appendChild(channelDiv);
-    });
+nav .menu {
+    display: flex;
+    align-items: center;
 }
 
-// Call loadChannels function on channel page load
-document.addEventListener('DOMContentLoaded', loadChannels);
+nav .menu ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+nav .menu ul li {
+    margin: 0 15px; /* Space between menu items */
+}
+
+nav .menu ul li a {
+    color: #e0e1dd; /* Menu link color */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+nav .menu ul li a:hover {
+    color: #778da9; /* Menu link hover color */
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    padding: 5px;
+    border: 1px solid #415a77; /* Search input border color */
+    border-radius: 5px;
+}
+
+.search-button {
+    padding: 5px 10px;
+    border: none;
+    background-color: #415a77; /* Button background color */
+    color: white; /* Button text color */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-button:hover {
+    background-color: #778da9; /* Button hover color */
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+}
+
+.profile-pic {
+    border-radius: 50%;
+}
+
+.username {
+    margin: 0 10px; /* Space around username */
+}
+
+/* Channels Section */
+.channels-container {
+    margin-top: 20px; /* Space above channels section */
+}
+
+.channel-item {
+    display: flex;
+    align-items: center;
+    background-color: #fff; /* Channel item background color */
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px 0; /* Space between channel items */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow effect */
+}
+
+.channel-icon {
+    width: 50px; /* Icon width */
+    height: 50px; /* Icon height */
+    border-radius: 5px;
+    margin-right: 15px; /* Space between icon and text */
+}
+
+.channel-info h2 {
+    margin: 0;
+    font-size: 1.2em; /* Channel title size */
+}
+
+.channel-info p {
+    margin: 5px 0 0; /* Space below email */
+    font-size: 0.9em; /* Email size */
+    color: #778da9; /* Email color */
+}
+
+/* Registration Form */
+.registration-container {
+    margin-top: 30px; /* Space above registration section */
+    padding: 20px;
+    background-color: #fff; /* Background color for form */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow effect */
+}
+
+.registration-container h2 {
+    margin: 0 0 15px; /* Space below heading */
+}
+
+.registration-container input {
+    width: 100%; /* Full width for inputs */
+    padding: 10px; /* Padding for inputs */
+    border: 1px solid #415a77; /* Input border color */
+    border-radius: 5px; /* Rounded corners */
+    margin-bottom: 15px; /* Space below inputs */
+}
+
+.registration-container button {
+    padding: 10px;
+    border: none;
+    background-color: #415a77; /* Button background color */
+    color: white; /* Button text color */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s; /* Transition for hover effect */
+}
+
+.registration-container button:hover {
+    background-color: #778da9; /* Button hover color */
+}
+
+/* Footer */
+footer {
+    margin-top: 30px; /* Space above footer */
+    text-align: center;
+    padding: 10px 0; /* Padding for footer */
+    background-color: #0d1b2a; /* Footer background color */
+    color: #e0e1dd; /* Footer text color */
+}

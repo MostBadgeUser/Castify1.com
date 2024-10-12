@@ -22,13 +22,13 @@
         <!-- Header Section -->
         <header>
             <div class="logo">
-                <a href="#" onclick="location.reload();">
+                <a href="index.html" onclick="location.reload();">
                     <img src="https://i.ibb.co/nCqS9g0/rushfordclean-1.png" alt="Castify Logo">
                 </a>
             </div>
             <nav class="menu">
                 <ul>
-                    <li><a href="#" onclick="location.reload();">Home</a></li>
+                    <li><a href="index.html" onclick="location.reload();">Home</a></li>
                     <li><a href="#">Watch</a></li>
                     <li><a href="https://mostbadgeuser.github.io/Castify_Channels.com/">Channels</a></li>
                     <li><a href="#">Community</a></li>
@@ -40,7 +40,7 @@
                 <div class="profile">
                     <img src="https://via.placeholder.com/40" alt="Profile Picture" class="profile-pic">
                     <span class="username">Guest</span> <!-- Default username until logged in -->
-                    <a href="#" class="logout-button" onclick="alert('Logged out!');">Log Out</a>
+                    <a href="#" class="logout-button" onclick="logout();">Log Out</a>
                 </div>
             </nav>
         </header>
@@ -49,6 +49,18 @@
         <section class="channels-container" id="channelsContainer">
             <h2>Channels</h2>
             <!-- Channels will be dynamically inserted here -->
+        </section>
+
+        <!-- Registration Form -->
+        <section class="registration-container">
+            <h2>Register</h2>
+            <form id="registrationForm">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit">Register</button>
+            </form>
+            <div id="registrationMessage"></div> <!-- Message area for registration feedback -->
         </section>
 
         <!-- Footer Section -->

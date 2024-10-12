@@ -15,7 +15,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Castify - Broadcast Your Passion</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 </head>
@@ -24,13 +23,13 @@
         <!-- Header Section -->
         <header>
             <div class="logo">
-                <a href="https://mostbadgeuser.github.io/Castify1.com/" onclick="location.reload();">
+                <a href="#" onclick="location.reload();">
                     <img src="https://i.ibb.co/nCqS9g0/rushfordclean-1.png" alt="Castify Logo">
                 </a>
             </div>
             <nav class="menu">
                 <ul>
-                    <li><a href="https://mostbadgeuser.github.io/Castify1.com/" onclick="location.reload();">Home</a></li>
+                    <li><a href="https://mostbadgeuser.github.io/Castify1.com/">Home</a></li>
                     <li><a href="#">Watch</a></li>
                     <li><a href="https://mostbadgeuser.github.io/Castify_Channels.com/">Channels</a></li>
                     <li><a href="#">Community</a></li>
@@ -41,8 +40,8 @@
                 </div>
                 <div class="profile">
                     <img src="https://i.ibb.co/Ksjms5W/icon.png" alt="Profile Picture" class="profile-pic">
-                    <span class="username">Guest</span> <!-- Default username until logged in -->
-                    <a href="#" class="logout-button" onclick="logout();">Log Out</a>
+                    <span class="username">Guest</span>
+                    <a href="#" class="logout-button">Log Out</a>
                 </div>
             </nav>
         </header>
@@ -90,33 +89,123 @@
         </footer>
     </div>
 
-    <script>
+    <script type="module">
+        // Firebase Configuration
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDTqZeTMNIAjBt9ArxAVG3HWL0zXiU9GnM",
+            authDomain: "castify-d259d.firebaseapp.com",
+            projectId: "castify-d259d",
+            storageBucket: "castify-d259d.appspot.com",
+            messagingSenderId: "809904193970",
+            appId: "1:809904193970:web:af4a99b6e3b8738adc64ab"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Handle Registration
+        document.getElementById('registerBtn').addEventListener('click', async () => {
+            const username = document.getElementById('registerUsername').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // Store the username and email in Firestore
+                await setDoc(doc(db, "users", username), { username, email, profilePic: 'https://i.ibb.co/Ksjms5W/icon.png' });
+
+                alert('Registration successful! You can log in now.');
+                document.getElementById('registerContainer').style.display = 'none';
+                document.getElementById('loginForm').style.display = 'block';
+            } catch (error) {
+                alert('Registration failed: ' + error.message);
+                console.error('Registration error:', error);
+            }
+        });
+
+        // Handle Login
+        document.getElementById('loginBtn').addEventListener('click', async () => {
+            const loginInput = document.getElementById('loginNickname').value; // Get nickname or email
+            const password = document.getElementById('loginPassword').value; // Get password
+
+            try {
+                let email;
+
+                // Check if the input is an email or nickname
+                if (loginInput.includes('@')) {
+                    email = loginInput; // It's an email
+                } else {
+                    // Look up the email associated with the nickname in Firestore
+                    const userDoc = await getDoc(doc(db, "users", loginInput));
+                    if (userDoc.exists()) {
+                        email = userDoc.data().email; // Get email from Firestore
+                    } else {
+                        alert('Nickname not found. Please try again.');
+                        return; // Exit the function early
+                    }
+                }
+
+                // Sign in with email
+                await signInWithEmailAndPassword(auth, email, password);
+                
+                // Fetch user profile data from Firestore
+                const userDoc = await getDoc(doc(db, "users", loginInput.includes('@') ? email : loginInput));
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    localStorage.setItem('currentUser', userData.username); // Store username
+                    document.querySelector('.username').textContent = userData.username; // Display username
+                    document.querySelector('.profile-pic').src = userData.profilePic; // Set profile picture
+                }
+
+                alert(`Login successful! Welcome, ${loginInput}! Redirecting...`);
+                window.location.href = 'https://mostbadgeuser.github.io/Castify1.com/';
+            } catch (error) {
+                console.error('Login error:', error);
+                alert('Invalid credentials. Please try again. Error: ' + error.message);
+            }
+        });
+
         // JavaScript for search functionality
         const searchButton = document.querySelector('.search-button');
         searchButton.addEventListener('click', function() {
             const query = document.querySelector('.search-input').value;
             alert('Searching for: ' + query);
-            // Here you can redirect to a search results page if implemented
         });
 
-        // Function to log out and redirect
+        // Logout function to clear user session and navigate
         function logout() {
-            localStorage.removeItem('currentUser'); // Remove current user from local storage
-            alert('Logged out! Redirecting to main page...');
-            window.location.href = 'https://mostbadgeuser.github.io/Castify.com/'; // Redirect after logout
+            localStorage.removeItem('currentUser'); // Clear user session
+            alert('Logged out!'); // Notify user
+            window.location.href = 'https://mostbadgeuser.github.io/Castify.com/'; // Navigate to the specified page
         }
 
-        // Function to display user's nickname
-        function displayUsername() {
+        // Attach logout function to logout button
+        document.querySelector('.logout-button').addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent default anchor behavior
+            logout();
+        });
+
+        // Function to display user's nickname upon page load
+        document.addEventListener('DOMContentLoaded', async () => {
             const currentUser = localStorage.getItem('currentUser');
             if (currentUser) {
-                const usernameDisplay = document.querySelector('.username');
-                usernameDisplay.textContent = currentUser; // Set username in profile section
+                // Fetch user profile data from Firestore
+                const userDoc = await getDoc(doc(db, "users", currentUser));
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    document.querySelector('.username').textContent = userData.username; // Set username
+                    document.querySelector('.profile-pic').src = userData.profilePic; // Set profile picture
+                }
             }
-        }
-
-        // Call displayUsername function on page load
-        document.addEventListener('DOMContentLoaded', displayUsername);
+        });
     </script>
 </body>
 </html>

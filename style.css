@@ -81,10 +81,10 @@ header .profile {
 }
 
 header .profile-pic {
-    width: 20px; /* Set width to 20 pixels */
-    height: 20px; /* Set height to 20 pixels */
-    border-radius: 50%; /* Keep it circular */
-    margin-right: 10px; /* Maintain spacing to the username */
+    width: 20px; /* Adjusted to 20px */
+    height: 20px; /* Adjusted to 20px */
+    border-radius: 50%;
+    margin-right: 10px;
 }
 
 header .username {
@@ -98,6 +98,7 @@ header .logout-button {
     border: none;
     padding: 5px 10px;
     border-radius: 5px;
+    text-decoration: none;
 }
 
 /* Recently Viewed & Watched Sections */
@@ -138,40 +139,26 @@ header .logout-button {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
-    flex-wrap: wrap; /* Allow wrapping for smaller screens */
 }
 
 .featured-video, .upload {
+    flex: 1; /* Allows equal sizing */
     background-color: #fff;
+    margin-right: 10px;
     padding: 20px;
     border: 1px solid #415a77;
-    border-radius: 5px; /* Added rounded corners */
-    width: 48%;
-}
-
-.video-frame {
-    background-color: #415a77;
-    color: #e0e1dd;
-    padding: 60px;
-    text-align: center;
     border-radius: 5px;
 }
 
-.upload button {
-    background-color: #1b263b;
-    color: #e0e1dd;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
+.featured-video {
+    margin-right: 0; /* No margin on the last item */
 }
 
-/* Footer Section */
+/* Footer */
 footer {
-    text-align: center;
     margin-top: 20px;
-    padding: 10px;
+    text-align: center;
+    padding: 20px;
     background-color: #1b263b;
     color: #e0e1dd;
-    position: relative;
 }

@@ -1,19 +1,13 @@
 // Check if user is logged in on page load
 function checkLoginStatus() {
     const currentUser = localStorage.getItem('currentUser');
-    const registrationTime = localStorage.getItem('registrationTime'); // Store registration time
-
-    // If user is logged in but registered within the last 15 seconds, don't redirect
-    if (currentUser) {
-        const now = new Date().getTime();
-        if (registrationTime && (now - registrationTime < 15000)) {
-            // User registered recently, stay on the page
-            return;
-        }
+    if (!currentUser) {
+        // Redirect to the main page if not logged in
+        window.location.href = 'https://mostbadgeuser.github.io/Castify.com/';
+    } else {
+        // If logged in, display the username
+        displayUsername();
     }
-
-    // Redirect to the main page if not logged in or registered long enough
-    window.location.href = 'https://mostbadgeuser.github.io/Castify.com/';
 }
 
 // Function to display user's nickname
@@ -32,12 +26,6 @@ function logout() {
     window.location.href = 'https://mostbadgeuser.github.io/Castify.com/'; // Redirect after logout
 }
 
-// Call functions on page load
-document.addEventListener('DOMContentLoaded', function() {
-    checkLoginStatus();
-    displayUsername();
-});
-
 // Check if user is already registered
 function isUserRegistered(username) {
     const users = JSON.parse(localStorage.getItem('users')) || [];
@@ -51,8 +39,6 @@ function registerUser(username, email, password) {
     localStorage.setItem('users', JSON.stringify(users));
     // Save the registered username (nickname) to localStorage for the session
     localStorage.setItem('currentUser', username);
-    // Store the registration time
-    localStorage.setItem('registrationTime', new Date().getTime());
 }
 
 // Send welcome email using EmailJS
@@ -111,5 +97,8 @@ function loadChannels() {
     });
 }
 
-// Call loadChannels function on channel page load
-document.addEventListener('DOMContentLoaded', loadChannels);
+// Call functions on page load
+document.addEventListener('DOMContentLoaded', function() {
+    checkLoginStatus(); // Check if user is logged in
+    loadChannels(); // Load channels on the channel page
+});

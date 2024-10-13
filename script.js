@@ -1,29 +1,70 @@
-// JavaScript for search functionality
-const searchButton = document.querySelector('.search-button');
-searchButton.addEventListener('click', function() {
-    const query = document.querySelector('.search-input').value;
-    alert('Searching for: ' + query);
-});
+// Firebase Configuration
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
-// Function to display user's nickname
-function displayUsername() {
-    const currentUser = localStorage.getItem('currentUser');
-    if (currentUser) {
-        const usernameDisplay = document.querySelector('.username');
-        usernameDisplay.textContent = currentUser; // Set username in profile section
-        document.querySelector('.profile-pic').src = 'https://i.ibb.co/Ksjms5W/icon.png'; // Set profile picture
+// Firebase Setup
+const firebaseConfig = {
+    apiKey: "AIzaSyDTqZeTMNIAjBt9ArxAVG3HWL0zXiU9GnM",
+    authDomain: "castify-d259d.firebaseapp.com",
+    projectId: "castify-d259d",
+    storageBucket: "castify-d259d.appspot.com",
+    messagingSenderId: "809904193970",
+    appId: "1:809904193970:web:af4a99b6e3b8738adc64ab"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// Update Profile UI
+async function updateProfileUI(user) {
+    try {
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (userDoc.exists()) {
+            const userData = userDoc.data();
+            document.querySelector('.username').textContent = userData.username;
+            document.querySelector('.profile-pic').src = userData.profilePic;
+        } else {
+            console.warn("User document not found.");
+        }
+    } catch (error) {
+        console.error("Error fetching user data:", error);
     }
 }
 
-// Logout function to clear user session and navigate
-function logout() {
-    localStorage.removeItem('currentUser'); // Clear user session
-    alert('Logged out!'); // Notify user
-    window.location.href = 'https://mostbadgeuser.github.io/Castify.com/'; // Navigate to the specified page
-}
+// Monitor Authentication State
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        updateProfileUI(user);
+    } else {
+        document.querySelector('.username').textContent = "Guest";
+    }
+});
 
-// Attach logout function to logout button
-document.querySelector('.logout-button').addEventListener('click', logout);
+// Login Function
+document.getElementById('loginBtn').addEventListener('click', async () => {
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
 
-// Call displayUsername function on page load
-document.addEventListener('DOMContentLoaded', displayUsername);
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        await updateProfileUI(user);
+        alert('Login successful!');
+        window.location.href = 'https://mostbadgeuser.github.io/Castify1.com/';
+    } catch (error) {
+        console.error('Login error:', error);
+        alert('Login failed. Please try again.');
+    }
+});
+
+// Logout Function
+document.querySelector('.logout-button').addEventListener('click', () => {
+    auth.signOut().then(() => {
+        alert('Logged out!');
+        window.location.reload();
+    }).catch((error) => {
+        console.error('Logout error:', error);
+    });
+});

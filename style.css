@@ -1,10 +1,11 @@
 /* General Reset */
-body, h1, h2, p, ul, li, a, button {
+body, h1, h2, h3, p, ul, li, a, button {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Basic Styling */
 body {
     font-family: 'Open Sans', sans-serif;
     background-color: #e0e1dd;
@@ -17,124 +18,140 @@ body {
     padding: 10px;
 }
 
-/* Header */
 header {
     background-color: #1b263b;
     padding: 20px;
+    color: #e0e1dd;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.logo img {
+header .logo img {
     max-height: 50px;
     cursor: pointer;
 }
 
-.menu ul {
+header nav {
     display: flex;
-    list-style: none;
     align-items: center;
+    flex-wrap: wrap;
 }
 
-.menu ul li {
+header nav ul {
+    display: flex;
+    list-style: none;
+}
+
+header nav ul li {
     margin: 0 15px;
 }
 
-.menu ul li a {
+header nav ul li a {
     color: #e0e1dd;
     text-decoration: none;
-    font-weight: 600;
 }
 
-.search-container {
+header .search-container {
     display: flex;
     align-items: center;
+    margin-left: auto;
 }
 
-.search-input {
+header .search-input {
     padding: 5px;
     border-radius: 5px;
     border: 1px solid #415a77;
     margin-right: 5px;
 }
 
-.search-button {
+header .search-button {
     background-color: #415a77;
     color: #e0e1dd;
     border: none;
     padding: 5px 10px;
-    cursor: pointer;
     border-radius: 5px;
+    cursor: pointer;
 }
 
-.profile {
+.user-menu {
     display: flex;
     align-items: center;
-    cursor: pointer;
+    margin: 20px 0;
 }
 
 .profile-pic {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     margin-right: 10px;
 }
 
-/* Popup Styles */
-.popup {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+.user-info {
+    margin-right: 20px;
 }
 
-.popup-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    width: 300px;
-    text-align: center;
-    position: relative;
+.username-display {
+    font-weight: bold;
 }
 
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
+.nickname-display {
+    color: #415a77;
+}
+
+.logout-button {
+    background-color: #1b263b;
+    color: #e0e1dd;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-.popup-content h2 {
-    margin-bottom: 15px;
+.notifications-icon {
+    font-size: 24px;
+    color: #1b263b;
+    cursor: pointer;
 }
 
-.popup-content ul {
-    list-style: none;
-    padding: 0;
-}
-
-.popup-content ul li {
-    margin: 10px 0;
-}
-
-.popup-content ul li a {
-    color: #415a77;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.footer {
+.recently-viewed, .featured, .upload {
+    background-color: #fff;
     margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #415a77;
+    border-radius: 5px;
+}
+
+.recently-viewed h2, .featured h3, .upload h3 {
+    color: #1b263b;
+}
+
+.video-thumbnails {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.video-item {
+    background-color: #778da9;
     text-align: center;
+    border-radius: 5px;
+    color: #e0e1dd;
+    flex: 1 1 calc(33.33% - 10px);
+    min-width: 250px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer {
     background-color: #1b263b;
     color: #e0e1dd;
-    padding: 10px;
+    text-align: center;
+    padding: 15px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 20px;
 }
